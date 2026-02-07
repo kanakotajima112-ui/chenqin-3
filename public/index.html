@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>远程联机双人猜数字</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>双人猜数字</h1>
+        
+        <!-- 登录/大厅 -->
+        <div id="lobby-screen" class="screen">
+            <div class="form-group">
+                <label>昵称 (1-6字符):</label>
+                <input type="text" id="nickname-input" maxlength="6" placeholder="请输入昵称">
+            </div>
+            <div class="actions">
+                <div class="mode-select">
+                    <label>游戏模式:</label>
+                    <select id="game-mode">
+                        <option value="2">双人对决</option>
+                        <option value="3">三人乱斗</option>
+                    </select>
+                </div>
+                <button id="create-room-btn">创建房间</button>
+                <div class="divider">或</div>
+                <input type="text" id="room-code-input" placeholder="输入房间号/邀请码">
+                <button id="join-room-btn">加入房间</button>
+            </div>
+            <button id="rules-btn" class="secondary-btn">游戏规则</button>
+        </div>
+
+        <!-- 游戏房间 -->
+        <div id="game-screen" class="screen hidden">
+            <div class="header">
+                <div id="room-info">房间号: <span id="display-room-code"></span> (可复制)</div>
+                <div id="player-info">
+                    <span id="my-role" class="role-badge"></span> <span id="my-nickname"></span>
+                </div>
+            </div>
+
+            <div class="status-bar" id="status-bar">
+                <!-- Dynamic player status -->
+            </div>
+
+            <!-- 设置目标数字区域 -->
+            <div id="setup-area" class="section hidden">
+                <h3>设置目标数字</h3>
+                <p>请输入5位纯数字 (对方猜的目标)</p>
+                <input type="password" id="target-input" maxlength="5" placeholder="*****">
+                <button id="submit-target-btn">确认提交</button>
+            </div>
+
+            <!-- 游戏进行区域 -->
+            <div id="play-area" class="section hidden">
+                <div class="turn-indicator" id="turn-indicator">当前回合: -</div>
+                
+                <div class="input-area">
+                    <input type="text" id="guess-input" maxlength="5" placeholder="输入5位猜测数字">
+                    <button id="submit-guess-btn">提交提问</button>
+                </div>
+
+                <div class="history-area">
+                    <h3>提问历史</h3>
+                    <div id="history-list">
+                        <!-- 历史记录 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="restart-btn" class="hidden">重新开始</button>
+                <button id="exit-btn" class="danger-btn">退出游戏</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 规则弹窗 -->
+    <div id="rules-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>游戏规则</h2>
+            <p>1. <strong>双人分边</strong>：双方各设置一个5位目标数字。</p>
+            <p>2. <strong>轮流提问</strong>：双方轮流输入5位数字进行猜测。</p>
+            <p>3. <strong>反馈机制</strong>：系统反馈“数字和位置都正确”的位数。</p>
+            <p>4. <strong>获胜条件</strong>：率先猜中对方5位数字者获胜。</p>
+        </div>
+    </div>
+
+    <!-- 胜负弹窗 -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content victory-modal">
+            <h2 id="result-title">游戏结束</h2>
+            <p id="result-message"></p>
+            <div class="targets-reveal" id="targets-reveal-list">
+                <!-- Dynamic targets -->
+            </div>
+            <button id="modal-restart-btn">重新开始</button>
+            <button id="modal-exit-btn">退出游戏</button>
+        </div>
+    </div>
+    
+    <!-- Victory Animation Container -->
+    <div id="confetti-container"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

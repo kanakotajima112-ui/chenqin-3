@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: guess-number-game
+    env: node
+    plan: free
+    buildCommand: npm ci --production=false
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
