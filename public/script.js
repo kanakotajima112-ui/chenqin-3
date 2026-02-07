@@ -29,12 +29,11 @@ const submitGuessBtn = document.getElementById('submit-guess-btn');
 const historyList = document.getElementById('history-list');
 const rulesBtn = document.getElementById('rules-btn');
 const rulesModal = document.getElementById('rules-modal');
+rulesModal.classList.add('hidden');
 const closeModal = document.querySelector('.close-modal');
 const resultModal = document.getElementById('result-modal');
 // Initialize modals as hidden (double check)
 resultModal.classList.add('hidden');
-const rulesModal = document.getElementById('rules-modal');
-rulesModal.classList.add('hidden');
 const resultTitle = document.getElementById('result-title');
 const resultMessage = document.getElementById('result-message');
 const myFinalTarget = document.getElementById('my-final-target');
