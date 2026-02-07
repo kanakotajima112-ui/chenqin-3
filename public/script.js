@@ -74,6 +74,7 @@ function validateNumber(input) {
 createRoomBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim() || '玩家A';
     const mode = gameModeSelect ? gameModeSelect.value : 2;
+    console.log('Creating room with mode:', mode);
     socket.emit('createRoom', { nickname, userId, maxPlayers: mode });
 });
 
